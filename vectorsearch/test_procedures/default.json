@@ -1,3 +1,4 @@
+{% import "benchmark.helpers" as benchmark with context %}
 {
     "name": "no-train-test",
     "description": "Index vector search which does not use an algorithm that requires training.",
@@ -60,4 +61,67 @@
         {{ benchmark.collect(parts="common/force-merge-schedule.json") }},
         {{ benchmark.collect(parts="common/search-only-schedule.json") }}
     ]
+},
+{
+    "name": "knn-no-train-test-small",
+    "default": false,
+    "schedule": [
+        {
+            "operation": {
+                "name": "delete-target-index",
+                "operation-type": "delete-index",
+                "only-if-exists": true,
+                "index": "{{ target_index_name }}"
+            }
+        },
+        {
+            "operation": {
+                "name": "wait-a-minute-or-more-1",
+                "operation-type": "sleep",
+                "duration": {{ wait_time_in_sec }}
+            }
+        },
+        {
+            "operation": {
+                "name": "create-target-index",
+                "operation-type": "create-index",
+                "index": "{{ target_index_name }}"
+            }
+        },
+        {
+            "operation": {
+                "name": "wait-a-minute-or-more-2",
+                "operation-type": "sleep",
+                "duration": {{ wait_time_in_sec }}
+            }
+        },
+        {
+            "operation": {
+                "name": "custom-vector-bulk-offset",
+                "operation-type": "offset-bulk-vector-data-set",
+                "index": "{{ target_index_name }}",
+                "field": "{{ target_field_name }}",
+                "bulk_size": {{ target_index_bulk_size }},
+                "data_set_format": "{{ target_index_bulk_index_data_set_format }}",
+                "data_set_path": "{{ target_index_bulk_index_data_set_path }}",
+                "num_vectors": {{ target_index_num_vectors }},
+                "starting_offset": {{ starting_offset }},
+                "retries": 10,
+                "id-field-name": "{{ id_field_name }}",
+                "filter_attributes": {{ target_dataset_filter_attributes | default([]) | tojson }},
+                "ramp_up_time_period" : {{ ramp_up_time_period }},
+                "timeout": "{{ timeout }}"
+            },
+            "clients": {{ target_index_bulk_index_clients }}
+        },
+        {
+            "operation": {
+                "name": "wait-a-minute-or-more-3",
+                "operation-type": "sleep",
+                "duration": {{ wait_time_in_sec }}
+            }
+        }
+    ]
 }
+
+
