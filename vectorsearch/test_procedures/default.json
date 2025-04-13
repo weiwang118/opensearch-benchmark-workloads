@@ -111,7 +111,7 @@
                 "ramp_up_time_period" : {{ ramp_up_time_period }},
                 "timeout": "{{ timeout }}"
             },
-            "clients": {{ target_index_bulk_index_clients }}
+            "clients": {{ target_index_bulk_indexing_clients }}
         },
         {
             "operation": {
