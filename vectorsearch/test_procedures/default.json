@@ -103,6 +103,7 @@
                 "bulk_size": {{ target_index_bulk_size }},
                 "data_set_format": "{{ target_index_bulk_index_data_set_format }}",
                 "data_set_path": "{{ target_index_bulk_index_data_set_path }}",
+                "data_set_corpus": "{{ target_index_bulk_index_data_set_corpus  }}",
                 "num_vectors": {{ target_index_num_vectors }},
                 "starting_offset": {{ starting_offset }},
                 "retries": 10,
