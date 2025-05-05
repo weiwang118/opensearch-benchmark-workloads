@@ -6,7 +6,7 @@
         "detailed-results": true,
         "k": {{ query_k  | default(100) }},
         "repetitions": {{ repetitions | default(1) }},
-        "rescore": {{ rescore | default(false) }},
+        "rescore": {{ rescore | default(false) | tojson }},
         "rescore_oversample_factor": {{ rescore_oversample_factor | default(3) }},
         "field" : "{{ target_field_name | default('target_field') }}",
         "data_set_format" : "{{ query_data_set_format | default('hdf5') }}",
