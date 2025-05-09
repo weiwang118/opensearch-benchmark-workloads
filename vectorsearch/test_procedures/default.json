@@ -120,6 +120,10 @@
                 "operation-type": "sleep",
                 "duration": {{ wait_time_in_sec }}
             }
+        },
+        {
+            "name" : "refresh-target-index",
+            "operation" : "refresh-target-index"
         }
     ]
 }
