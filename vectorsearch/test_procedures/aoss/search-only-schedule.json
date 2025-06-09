@@ -4,7 +4,6 @@
         "operation-type": "vector-search",
         "index": "{{ target_index_name | default('target_index') }}",
         "detailed-results": true,
-        "param-source": "drop_cache",
         "k": {{ query_k  | default(100) }},
         "repetitions": {{ repetitions | default(1) }},
         "rescore": {{ rescore | default(false) | tojson }},
